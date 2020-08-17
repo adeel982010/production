@@ -47,4 +47,36 @@ class HrLeave(models.Model):
                              float(leave_days),
                              float(remaining)))
 
+    def write(self, values):
+
+        # is_officer = self.env.user.has_group('hr_holidays.group_hr_holidays_user')
+
+        # if not is_officer:
+        #     if any(hol.date_from.date() < fields.Date.today() for hol in self):
+        #         raise UserError(_('You must have manager rights to modify/validate a time off that already begun'))
+
+        employee_id = values.get('employee_id', False)
+        if not self.env.context.get('leave_fast_create'):
+            if values.get('state'):
+                self._check_approval_update(values['state'])
+                if any(holiday.validation_type == 'both' for holiday in self):
+                    if values.get('employee_id'):
+                        employees = self.env['hr.employee'].browse(values.get('employee_id'))
+                    else:
+                        employees = self.mapped('employee_id')
+                    self._check_double_validation_rules(employees, values['state'])
+            if 'date_from' in values:
+                values['request_date_from'] = values['date_from']
+            if 'date_to' in values:
+                values['request_date_to'] = values['date_to']
+        result = super(HolidaysRequest, self).write(values)
+        if not self.env.context.get('leave_fast_create'):
+            for holiday in self:
+                if employee_id:
+                    holiday.add_follower(employee_id)
+                    self._sync_employee_details()
+                if 'number_of_days' not in values and ('date_from' in values or 'date_to' in values):
+                    holiday._onchange_leave_dates()
+        return result
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

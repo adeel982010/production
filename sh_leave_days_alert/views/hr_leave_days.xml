@@ -8,7 +8,7 @@
 			<field name="model">hr.leave.type</field>
 			<field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
 			<field name="arch" type="xml">
-				<field name="color_name" position="after">
+				<field name="allocation_type" position="after">
 					<field name="leave_before_day_alert"/>
   					<field name="leave_before_days" attrs="{'invisible':[('leave_before_day_alert','=',False)] }" />
 				</field>
