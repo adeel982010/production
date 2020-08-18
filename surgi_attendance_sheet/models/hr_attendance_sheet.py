@@ -146,11 +146,12 @@ class AttendanceSheet(models.Model):
         day_end_native = day_end.replace(tzinfo=tz).astimezone(
             pytz.utc).replace(tzinfo=None)
         res = []
-        attendances = self.env['hr.attendance'].sudo().search(
-            [('employee_id.id', '=', employee.id),
-             ('check_in', '>=', day_start_native),
-             ('check_in', '<=', day_end_native)],
-            order="check_in")
+        domain = [('employee_id.id', '=', employee.id),
+                  ('check_in', '>=', day_start_native),
+                  ('check_in', '<=', day_end_native), ]
+        if employee.attendance_aaproval:
+            domain += [('approval_state', '=', 'approved')]
+        attendances = self.env['hr.attendance'].sudo().search(domain,order="check_in")
         for att in attendances:
             check_in = att.check_in
             check_out = att.check_out
@@ -320,7 +321,7 @@ class AttendanceSheet(models.Model):
                                                     work_interval[1] < \
                                                     leave_interval[1]:
                                                 miss_type = 'right'
-                                                miss_amount=0
+                                                miss_amount = 0
                                                 miss_cnt -= 1
                                                 note = 'Removing Mis-punch Out due to leave'
 
@@ -357,7 +358,7 @@ class AttendanceSheet(models.Model):
                                                     work_interval[0] < \
                                                     leave_interval[1]:
                                                 miss_type = 'right'
-                                                miss_amount=0
+                                                miss_amount = 0
                                                 miss_cnt -= 1
                                                 note = 'Removing Mis-punch In due to leave'
                                     ac_sign_in = 0

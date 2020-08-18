@@ -21,5 +21,19 @@ class HrAttendance(models.Model):
                    ('right', 'Right')],
         default='right')
 
+    approval_state = fields.Selection(
+        selection=[('draft', 'Draft'), ('approved', 'Approved')],
+        default='draft')
+
+    def action_approve(self):
+        for attendance in self:
+            attendance.approval_state = 'approved'
+
+    @api.model
+    def create(self, values):
+        res = super(HrAttendance, self).create(values)
+        if not res.employee_id.attendance_approval:
+            res.approval_state = 'approved'
+
     def fix_attendance(self):
         self.write({'state': 'right'})

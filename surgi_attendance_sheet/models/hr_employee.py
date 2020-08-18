@@ -17,6 +17,8 @@ import pytz
 class hrEmployee(models.Model):
     _inherit = "hr.employee"
 
+    attendance_approval = fields.Boolean('Require Attendance Approval')
+
     def get_employee_shifts(self, day_start, day_end, tz):
         self.ensure_one()
         plan_slot_obj = self.env['planning.slot']
@@ -32,6 +34,12 @@ class hrEmployee(models.Model):
         for slot in slot_ids:
             working_intervals.append((slot.start_datetime, slot.end_datetime))
         return working_intervals
+
+
+class HrEmployeePublic(models.Model):
+    _inherit = 'hr.employee.public'
+
+    attendance_approval = fields.Boolean('Require Attendance Approval')
 
 
 

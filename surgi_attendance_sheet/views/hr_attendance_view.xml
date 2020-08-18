@@ -12,6 +12,10 @@
                 </xpath>
                 <xpath expr="//field[@name='check_out']" position="after">
                     <field name="state" invisible="0"/>
+                    <field name="approval_state"/>
+                    <button name="action_approve" type="object" string="Approve"
+                            attrs="{'invisible':[('approval_state','!=','draft')]}"
+                    groups="surgi_attendance_sheet.group_approve_attendance"/>
 
                 </xpath>
 
@@ -33,7 +37,8 @@
                                 groups="hr_attendance.group_hr_attendance_user"/>
 
                         <field name="state" widget="statusbar"
-                               statusbar_visible="right,fixin,fixout" clickable="1"
+                               statusbar_visible="right,fixin,fixout"
+                               clickable="1"
                         />
                     </header>
                 </xpath>
