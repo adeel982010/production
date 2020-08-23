@@ -149,7 +149,7 @@ class AttendanceSheet(models.Model):
         domain = [('employee_id.id', '=', employee.id),
                   ('check_in', '>=', day_start_native),
                   ('check_in', '<=', day_end_native), ]
-        if employee.attendance_aaproval:
+        if employee.attendance_approval:
             domain += [('approval_state', '=', 'approved')]
         attendances = self.env['hr.attendance'].sudo().search(domain,order="check_in")
         for att in attendances:
