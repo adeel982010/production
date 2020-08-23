@@ -1,0 +1,68 @@
+<odoo>
+    <data>
+
+        <record id="action_hr_expense_sheet_my_all_server" model="ir.actions.server">
+            <field name="name">My Expense Reporting</field>
+            <field name="model_id" ref="hr_expense.model_hr_expense_sheet"/>
+            <field name="state">code</field>
+            <field name="code">action = model.filters_employee_treasury()</field>
+        </record>
+
+
+        <menuitem id="hr_expense.menu_hr_expense_sheet_my_reports" sequence="3"
+                  parent="hr_expense.menu_hr_expense_my_expenses" action="action_hr_expense_sheet_my_all_server"/>
+
+
+
+
+
+
+        <!--        =================================================-->
+
+
+        <record id="hr_expense_actions_my_unsubmitted_server" model="ir.actions.server">
+            <field name="name">My Expense</field>
+            <field name="model_id" ref="hr_expense.model_hr_expense"/>
+            <field name="state">code</field>
+            <field name="code">action = model.filters_employee_work_location()</field>
+        </record>
+
+        <menuitem id="hr_expense.menu_hr_expense_my_expenses_to_submit" sequence="1"
+                  parent="hr_expense.menu_hr_expense_my_expenses" action="hr_expense_actions_my_unsubmitted_server"/>
+
+
+        <record id="form_view_work_locations_pages" model="ir.ui.view">
+            <field name="name">name.work.locations</field>
+            <field name="model">work.locations</field>
+            <field name="arch" type="xml">
+                <form string="Work Location">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_work_location_views" model="ir.actions.act_window">
+            <field name="name">Work Location</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">work.locations</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p>
+            </field>
+        </record>
+
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="menu_action_work_location" name="Work Location" parent="hr.menu_hr_root"
+                  action="action_work_location_views" sequence="4"/>
+    </data>
+</odoo>
