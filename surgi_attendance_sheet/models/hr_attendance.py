@@ -22,12 +22,18 @@ class HrAttendance(models.Model):
         default='right')
 
     approval_state = fields.Selection(
-        selection=[('draft', 'Draft'), ('approved', 'Approved')],
+        selection=[('draft', 'Draft'),
+                   ('approved', 'Approved'),
+                   ('reject', 'Rejected')],
         default='draft')
 
     def action_approve(self):
         for attendance in self:
             attendance.approval_state = 'approved'
+
+    def action_reject(self):
+        for attendance in self:
+            attendance.approval_state = 'reject'
 
     @api.model
     def create(self, values):
