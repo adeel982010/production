@@ -1,0 +1,91 @@
+<odoo>
+    <data>
+
+
+        <record id="tree_view_move_line_tree_inherit_edit" model="ir.ui.view">
+            <field name="name">name.stock.inventory.line.tree.edits</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_move_line_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='lot_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_move_line_form_inherit" model="ir.ui.view">
+            <field name="name">view_move_line_form_inherit</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_move_line_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='lot_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="form_view_stock_production_lot_inherit" model="ir.ui.view">
+            <field name="name">name.stock.production.lot.edit.forms</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='company_id']" position="attributes">
+                    <attribute name="required">0</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="company_id123"/>
+
+
+                </xpath>
+
+            </field>
+        </record>
+
+        <!--        <record id="tree_stock_production_lot_edit" model="ir.ui.view">-->
+        <!--            <field name="name">name.stock.production.lot.tree</field>-->
+        <!--            <field name="model">stock.production.lot</field>-->
+        <!--            <field name="inherit_id" ref="stock.view_production_lot_tree"/>-->
+        <!--            <field name="arch" type="xml">-->
+
+        <!--                <xpath expr="//field[@name='company_id']" position="replace">-->
+        <!--                    <field name="company_id2"/>-->
+        <!--                </xpath>-->
+
+        <!--            </field>-->
+        <!--        </record>-->
+
+<!--                <record id="stock.action_production_lot_form" model="ir.actions.act_window">-->
+<!--                <field name="name">Lots/Serial Numbers</field>-->
+<!--                <field name="type">ir.actions.act_window</field>-->
+<!--                <field name="res_model">stock.production.lot</field>-->
+<!--                <field name="view_ids"-->
+<!--                           eval="[(5, 0, 0),-->
+<!--                                  (0, 0, {'view_mode': 'tree', 'view_id': ref('stock.view_production_lot_tree')}),-->
+<!--                                  (0, 0, {'view_mode': 'form', 'view_id': ref('stock.view_production_lot_form')})]"/>-->
+<!--                <field name="search_view_id" ref="stock.search_product_lot_filter"/>-->
+<!--                <field name="context">{'search_default_group_by_product': 1, 'display_complete': True, 'default_company_id123': False}</field>-->
+<!--                <field name="help" type="html">-->
+<!--                  <p class="o_view_nocontent_smiling_face">-->
+<!--                    Add a lot/serial number-->
+<!--                  </p><p>-->
+<!--                    This is the list of all the production lots you recorded. When-->
+<!--                    you select a lot, you can get the traceability of the products contained in lot.-->
+<!--                  </p>-->
+<!--                </field>-->
+<!--            </record>-->
+
+
+    </data>
+</odoo>
