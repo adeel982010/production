@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+
+        <record id="hr_expense_traged" model="res.groups">
+            <field name="name">Treasury Access</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="form_view_hr_expense_sheet" model="ir.ui.view">
+            <field name="name">name.hr.expenses.sheet.data</field>
+            <field name="model">hr.expense.sheet</field>
+            <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='state']" position="replace">
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve,traged,post,done"/>
+
+                </xpath>
+
+                <xpath expr="//button[@name='action_sheet_move_create']" position="replace">
+                    <button name="action_sheet_traged" string="Treasury" type="object"
+                            groups="surgi_expense_trust.hr_expense_traged" attrs="{'invisible': [('state', '!=', 'approve')]}"
+                            class="oe_highlight o_expense_sheet_post"/>
+
+                    <button name="action_sheet_move_create" string="Post Journal Entries" type="object"
+                            groups="account.group_account_manager" attrs="{'invisible': [('state', '!=', 'traged')]}"
+                            class="oe_highlight o_expense_sheet_post"/>
+
+                </xpath>
+
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="trust_id" domain="[('product_id.name_1222','=',True)]"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>
