@@ -40,6 +40,7 @@ class HrAttendance(models.Model):
         res = super(HrAttendance, self).create(values)
         if not res.employee_id.attendance_approval:
             res.approval_state = 'approved'
+        return res
 
     def fix_attendance(self):
         self.write({'state': 'right'})
