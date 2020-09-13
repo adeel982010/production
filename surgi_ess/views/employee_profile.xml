@@ -63,7 +63,7 @@
                                             <field name="mobile_phone"/>
                                         </li>
 
-                                   
+
                                     </ul>
 
                                     <div class="o_kanban_button">
@@ -132,11 +132,9 @@
                                                        options="{'no_open': True}"/>
                                             </group>
                                             <group>
-                                                <field name="department_id" position="after">
                                                     <field name="grade_id" options="{'no_open': True}"/>
                                                     <field name="rank_id" options="{'no_open': True}"/>
                                                     <field name="rang_id" options="{'no_open': True}"/>
-                                                </field>
                                             </group>
                                         </group>
                                         <field name="notes" placeholder="Other Information ..." colspan="4"
