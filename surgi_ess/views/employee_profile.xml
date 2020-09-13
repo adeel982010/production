@@ -71,6 +71,9 @@
                                             <field name="rank_id"/>
                                         </li>
 
+                                        <li t-if="record.rang_id.raw_value">
+                                            <field name="rang_id"/>
+                                        </li>
 
 
                                     </ul>
@@ -134,9 +137,8 @@
                                             </group>
                                             <group string="Position">
                                                 <field name="department_id" readonly="1" options="{'no_open': True}"/>
-                                                <field name="grade_id" options="{'no_open': True}"/>
-                                                <field name="rank_id" options="{'no_open': True}"/>
-                                                <field name="rang_id" options="{'no_open': True}"/>
+
+                                                <field name="rang_id" options="{'no_open': True}" string="Grade"/>
 
                                                 <field name="job_id" readonly="1" options="{'no_open': True}"/>
 
