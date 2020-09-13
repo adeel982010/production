@@ -126,6 +126,11 @@
                                             <group string="Position">
                                                 <field name="department_id" readonly="1" options="{'no_open': True}"/>
                                                 <field name="job_id" readonly="1" options="{'no_open': True}"/>
+                                                 <field name="department_id" position="after">
+                                                    <field name="grade_id" options="{'no_open': True}"/>
+                                                    <field name="rank_id" options="{'no_open': True}"/>
+                                                    <field name="rang_id" options="{'no_open': True}"/>
+                                                </field>
                                                 <field name="parent_id" readonly="1" options="{'no_open': True}"/>
                                                 <field name="coach_id" readonly="1" options="{'no_open': True}"/>
                                                 <field name="resource_calendar_id" readonly="1"
