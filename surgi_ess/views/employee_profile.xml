@@ -71,9 +71,6 @@
                                             <field name="rank_id"/>
                                         </li>
 
-                                        <li t-if="record.range_id.raw_value">
-                                            <field name="range_id"/>
-                                        </li>
 
 
                                     </ul>
