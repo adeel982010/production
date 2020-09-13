@@ -131,11 +131,7 @@
                                                 <field name="resource_calendar_id" readonly="1"
                                                        options="{'no_open': True}"/>
                                             </group>
-                                            <group>
-                                                    <field name="grade_id" options="{'no_open': True}"/>
-                                                    <field name="rank_id" options="{'no_open': True}"/>
-                                                    <field name="rang_id" options="{'no_open': True}"/>
-                                            </group>
+
                                         </group>
                                         <field name="notes" placeholder="Other Information ..." colspan="4"
                                                readonly="1"/>
