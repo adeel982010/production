@@ -60,7 +60,7 @@ class increment_contract(models.Model):
     year_increment = fields.Selection(year_selection,string="Year" , default="2020")
     amount_increment = fields.Float(string="Increment Amount")
     increment_id= fields.Many2one('hr.contract',string='Employee increement', required=True)
-    current_salary= fields.Float(string="Current Salary")
+    current_salary= fields.Float(string="Salary")
     total_empp_salary = fields.Float(string='Current Salary', related='increment_id.total_salary',store=True,readonly=True, forcesave=True ,ondelete='cascade',onchange=True,index=True)
     emp_contract = fields.Many2one('hr.employee')
     # emp_contract_name = fields.Char(string='Employee')

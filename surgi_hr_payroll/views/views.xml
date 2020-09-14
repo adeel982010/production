@@ -115,7 +115,7 @@
 
 
 
-    <menuitem name="Employee Contract" id="contract_inccrement_menu" parent="hr_payroll.menu_hr_payroll_root"
+    <menuitem name="Employee Increment" id="contract_inccrement_menu" parent="hr_payroll.menu_hr_payroll_root"
               action="increment_contract_action"        sequence="100" />
 
   </data>
