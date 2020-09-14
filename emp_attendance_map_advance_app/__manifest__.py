@@ -16,11 +16,14 @@
     "depends" : ['base','web','hr','hr_attendance','emp_attendance_google_map_app'],
     "data": [
         'views/employee_map_attendance_view.xml',
+        'views/hr_employee.xml',
+        'views/hr_attendance.xml'
     ],
     'external_dependencies' : {
         'python' : ['googlegeocoder','googlemaps' , 'geopy'],
     },
     'qweb': [
+        'static/src/xml/attendance.xml',
     ],
     "auto_install": False,
     "installable": True,
