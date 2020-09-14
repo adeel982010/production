@@ -78,10 +78,26 @@ class HrEmployee(models.Model):
 class HrEmployee(models.Model):
 
     _inherit = 'hr.employee'
-
+    department_id=fields.Many2one('hr.department',related='contract_id.department_id',store=True)
+    job_id=fields.Many2one('hr.job', related='contract_id.job_id',store=True)
     grade_id = fields.Many2one('grade.grade', related='contract_id.grade_id', readonly=True)
     rank_id = fields.Many2one('rank.rank',  related='contract_id.rank_id', readonly=True)
     rang_id = fields.Many2one('rang.rang',  related='contract_id.rang_id', readonly=True)
+
+
+
+class HRDeprat(models.Model):
+    _inherit = 'hr.department'
+
+
+
+
+
+
+
+
+
+
 
     # @api.onchange('grade_id')
     # def onchange_grade(self):

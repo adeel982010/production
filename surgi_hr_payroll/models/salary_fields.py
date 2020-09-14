@@ -3,6 +3,95 @@
 from odoo import models, fields, api
 from odoo.addons import decimal_precision as dp
 
+class increment_contract(models.Model):
+    _name = 'increment.contract'
+
+    @api.model
+    def year_selection(self):
+        year = 1990  # replace 2000 with your a start year
+        year_list = []
+        while year != 2030:  # replace 2030 with your end year
+            year_list.append((str(year), str(year)))
+            year += 1
+        return year_list
+    # @api.onchange('emp_contract')
+    # def set_employee_name(self):
+    #     for rec in self:
+    #        if rec.emp_contract:
+    #            rec.emp_contract_name = rec.emp_contract.employee_id
+
+
+    @api.onchange('grade_id')
+    def set_employee_name(self):
+        for rec in self:
+           if rec.grade_id:
+               rec.grade_ids = rec.grade_id
+
+    @api.onchange('rank_id')
+    def set_employee_name(self):
+        for rec in self:
+           if rec.rank_id:
+               rec.rank_ids = rec.rank_id
+
+    @api.onchange('rang_id')
+    def set_employee_name(self):
+        for rec in self:
+           if rec.rang_id:
+               rec.rang_ids = rec.rang_id
+
+
+
+    @api.depends('current_salary', 'amount_increment' )
+    def _getsum_total_current_salary(self):
+        for rec in self:
+            rec.total_current_salary = rec.current_salary + rec.amount_increment
+
+
+    grade_id = fields.Many2one('grade.grade')
+    rank_id = fields.Many2one('rank.rank')
+    rang_id = fields.Many2one('rang.rang')
+    grade_ids = fields.Char(string='Grade' )
+    rank_ids = fields.Char(string='Rank')
+    rang_ids = fields.Char(string='Range')
+
+
+
+    employee_id= fields.Many2one('hr.employee', string='employee')
+    year_increment = fields.Selection(year_selection,string="Year" , default="2020")
+    amount_increment = fields.Float(string="Increment Amount")
+    increment_id= fields.Many2one('hr.contract',string='Employee increement', required=True)
+    current_salary= fields.Float(string="Current Salary")
+    total_empp_salary = fields.Float(string='Current Salary', related='increment_id.total_salary',store=True,readonly=True, forcesave=True ,ondelete='cascade',onchange=True,index=True)
+    emp_contract = fields.Many2one('hr.employee')
+    # emp_contract_name = fields.Char(string='Employee')
+
+    total_current_salary = fields.Float('Total Salary with increment', compute='_getsum_total_current_salary')
+
+
+
+
+    job_ides = fields.Many2one('hr.job',store=True, required=True , Create=False , string='Jop Position')
+
+
+
+
+
+
+
+
+
+
+
+
+class HRjobincr(models.Model):
+    _inherit = 'hr.job'
+
+class hrempin(models.Model):
+    _inherit = 'hr.employee'
+
+
+
+
 class HrContract(models.Model):
     _inherit = 'hr.contract'
 
@@ -64,3 +153,4 @@ class HrContract(models.Model):
     mobi = fields.Float('Mobile',track_visibility='onchange',digits=dp.get_precision('Payroll'))
     housing = fields.Float('Housing Allowance',track_visibility='onchange',digits=dp.get_precision('Payroll'))
     nature = fields.Float('Nature Of Work',track_visibility='onchange',digits=dp.get_precision('Payroll'))
+    increment_contract = fields.One2many('increment.contract', 'increment_id', string='Increment Emp Contract')

@@ -6,6 +6,37 @@
             <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//notebook/page[@name='information']" position="after">
+                    <page name="icrement_emp_surgi" string="increment historical">
+
+                        <group colspan="8">
+<!--                            <group>-->
+<!--                                <field name="emp_contract_name" />-->
+
+<!--                            </group>-->
+
+                                <field name="increment_contract" string="increment" >
+                                            <tree editable="bottom" colspan="6">
+        <!--                                        <field name="job_pos" />-->
+                                                <field name="job_ides"/>
+
+                                                <field name="grade_id" forcesave='1'/>
+                                                <field name="rank_id" forcesave='1'/>
+                                                <field name="rang_id" forcesave='1'/>
+
+                                                <field name="year_increment" forcesave='1'/>
+                                                <field name="current_salary" />
+
+                                                <field name="amount_increment" forcesave='1'/>
+                                                <field name="total_current_salary" />
+
+<!--                                                    <field name="total_empp_salary" />-->
+                                            </tree>
+
+                                </field>
+
+                        </group>
+
+                    </page>
                     <page name="insurance_info" string="Insurance Information">
                         <group>
                             <group>
@@ -79,6 +110,18 @@
 
             </field>
         </record>
+<!--        <record id="view_contract_form_grade_ranks" model="ir.ui.view">-->
+<!--            <field name="name">hr.contract.form.grade.ranks</field>-->
+<!--            <field name="model">hr.contract</field>-->
+<!--            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='grade_total_salary']" position="after">-->
+
+<!--                    <field name="total_salary"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
 
 
     </data>
