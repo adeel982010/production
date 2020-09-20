@@ -10,6 +10,7 @@ odoo.define('emp_attendance_google_map_app.my_attendances_restriction', function
     var _t = core._t;
     var rpc = require('web.rpc');
     var field_utils = require('web.field_utils');
+    var Dialog = require('web.Dialog');
 
     MyAttendances.include({
 
@@ -56,10 +57,23 @@ odoo.define('emp_attendance_google_map_app.my_attendances_restriction', function
                 var context = {};
                 if (self.employee_attend) {
                     if (self.employee_attend.allow_check_in_description) {
+
                         context['default_task_description'] = $('input#task_description').val();
+                        if (!context['default_task_description'] && self.employee.attendance_state ==='checked_out') {
+                            window.alert('Please Add Task Description')
+                            return
+
+
+
+
+                        }
                     }
                     if (self.employee_attend.allow_check_in_task) {
                         context['default_task_id'] = parseInt($('select.task_select').val()) || false;
+                        if (!context['default_task_id'] && self.employee.attendance_state ==='checked_out') {
+                             window.alert('Please select attendance task')
+                            return
+                        }
                     }
                 }
 
