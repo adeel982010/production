@@ -73,9 +73,7 @@
              <pivot string="Increment Historical" disable_linking="True">
                  <field name="employee_id" type="row"/>
                  <field name="year_increment" type="col"/>
-                 <field name="grade_id" />
-                 <field name="rank_id" />
-                 <field name="rang_id" />
+ 
                  <field name="amount_increment" type="measure"/>
                  <field name="job_ides" type="measure"/>
 
