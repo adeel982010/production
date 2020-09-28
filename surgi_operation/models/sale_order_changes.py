@@ -88,31 +88,41 @@ class sale_order(models.Model):
         return res
 
 
-    @api.onchange('partner_id')
-    def _onchange_partner_id(self):
-        if self.partner_id.is_hospital:
-            self.so_type = "tender"
-            self.flag = True
-            partner_location = self.env['stock.location'].search(
-                [('partner_id', '=', self.partner_id.id), ('usage', '=', 'customer')])
-            self.location_dest_id = partner_location.id
-        else:
-            self.so_type = ''
-            self.flag = True
+    # @api.onchange('partner_id')
+    # def _onchange_partner_id(self):
+    #     if self.partner_id.is_hospital:
+    #         self.so_type = "tender"
+    #         self.flag = True
+    #         partner_location = self.env['stock.location'].search(
+    #             [('partner_id', '=', self.partner_id.id), ('usage', '=', 'customer')])
+    #         self.location_dest_id = partner_location.id
+    #     else:
+    #         self.so_type = ''
+    #         self.flag = True
+    #
+    # @api.onchange('so_type')
+    # def _onchange_so_type(self):
+    #     if self.so_type == 'tender':
+    #         if self.partner_id.is_hospital:
+    #             self.flag = True
+    #             self.message_error = ''
+    #             partner_location = self.env['stock.location'].search(
+    #                 [('partner_id', '=', self.partner_id.id), ('usage', '=', 'customer')])
+    #             # self.location_dest_id = partner_location.id
+    #             self.location_dest_id = self.partner_id.customers_sales_order_location_id
+    #         else:
+    #             self.message_error = "Customer must be hospital first"
+    #             self.so_type = ''
+    #             self.flag = False
+    #     else:
+    #         self.flag = True
+    #         self.message_error = ''
 
     @api.onchange('so_type')
     def _onchange_so_type(self):
-        if self.so_type == 'tender':
-            if self.partner_id.is_hospital:
-                self.flag = True
-                self.message_error = ''
-                partner_location = self.env['stock.location'].search(
-                    [('partner_id', '=', self.partner_id.id), ('usage', '=', 'customer')])
-                self.location_dest_id = partner_location.id
-            else:
-                self.message_error = "Customer must be hospital first"
-                self.so_type = ''
-                self.flag = False
+        if self.so_type == 'supply_order':
+            self.location_dest_id = self.partner_id.customers_sales_order_location_id
+        elif self.so_type == 'operation':
+            self.location_dest_id = self.partner_id.property_stock_customer
         else:
-            self.flag = True
-            self.message_error = ''
+            self.location_dest_id = ""
