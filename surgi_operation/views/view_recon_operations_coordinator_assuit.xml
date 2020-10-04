@@ -160,7 +160,7 @@
                         <group>
                             <group>
                                 <field name="flag" string="Confirmation Flag" readonly="1" attrs="{'invisible':['|',('hospital_id','=',False)], 'readonly': [('state','not in', ['draft'])]}"/>
-                                <field name="warehouse_id" attrs="{'invisible':[('flag','=',False)]}" readonly="1"  options="{'no_create': True, 'no_open': True}"/>
+                                <field name="warehouse_id" options="{'no_create': True, 'no_open': True}" attrs="{'invisible':[('flag','=',False)], 'readonly': [('state','not in', ['draft'])]}"/>
                                 <field name="gs_work_order" attrs="{'invisible':[('flag','=',False)], 'readonly': [('state','in', ['Done'])]}"/>
                             </group>
                             <group>

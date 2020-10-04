@@ -54,6 +54,7 @@
                     <field name="surgeon_id"/>
                     <field name="patient_name"/>
                     <field name="patient_national_id"/>
+                    <field name="moh_approved_operation"/>
                     <field name="side"/>
                     <field name="gs_work_order"/>
                     <field name="notes"/>
@@ -160,7 +161,7 @@
                         <group>
                             <group>
                                 <field name="flag" string="Confirmation Flag" readonly="1" attrs="{'invisible':['|',('hospital_id','=',False)], 'readonly': [('state','not in', ['draft'])]}"/>
-                                <field name="warehouse_id" attrs="{'invisible':[('flag','=',False)], 'readonly': [('state','in', ['Done'])]}"/>
+                                <field name="warehouse_id" options="{'no_create': True, 'no_open': True}" attrs="{'invisible':[('flag','=',False)], 'readonly': [('state','not in', ['draft'])]}"/>
                                 <field name="gs_work_order" attrs="{'invisible':[('flag','=',False)], 'readonly': [('state','in', ['Done'])]}"/>
                             </group>
                             <group>

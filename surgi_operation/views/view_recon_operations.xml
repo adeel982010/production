@@ -121,9 +121,9 @@
                         <separator string="Patient"/>
                         <group>
                             <group>
-                                <field name="patient_name" attrs="{'readonly': [('op_type', '=', 'tender')]}"/>
-                                <field name="patient_national_id" invisible ="1"/>
-                                <field name="moh_approved_operation" invisible="0" readonly="1"/>
+                                <field name="patient_name" force_save ="1" attrs="{'readonly': [('op_type', '=', 'tender')]}"/>
+                                <field name="patient_national_id" force_save ="1" invisible ="1"/>
+                                <field name="moh_approved_operation" force_save ="1" invisible="0" readonly="1"/>
                                 <field name="side" required="1" attrs="{'readonly':[('state', 'not in', ['draft'])]}"/>
                         </group>
                             <group>
