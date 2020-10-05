@@ -74,7 +74,9 @@
                         <!--<button name="action_done_sales" string="Done" type="object" attrs="{'invisible': [('state','!=','confirm')]}"/>-->
                         <!--<button name="create_sales_order" string="Create SO" icon="fa-cart-plus" type="object" attrs="{'invisible': ['|',('op_type','!=','surgery'),('state','=','draft')]}"/>-->
                         <!--<button name="action_confirm_sales" string="Confirm" type="object" attrs="{'invisible': [('state','!=','draft')]}"/>-->
-                        <button name="open_wizard_cancel_operation" type="object" string="Cancel" icon="fa-pencil" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['Return','done', 'cancel'])]}"/>
+                        <button name="open_wizard_cancel_operation" type="object" string="Cancel" icon="fa-pencil" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['confirm','op-start', 'draft'])]}"/>
+                        <button name="action_operation_start" string="Op. Started" type="object" attrs="{'invisible': [('state', 'not in', ['confirm'])]}"/>
+                        <button name="action_operation_end" string="Op. Ended" type="object" attrs="{'invisible': [('state', 'not in', ['confirm','op-start'])]}"/>
                         <field name="state" widget="statusbar" /> <!-- attrs="{'invisible': [('state', 'not in', ['draft','done', 'cancel'])]}"/>-->
                         <!--<field name="stage_id" widget="statusbar" attrs="{'invisible': [('state', 'in', ['draft','done', 'cancel'])]}" clickable="False"/>-->
                     </header>
@@ -192,6 +194,17 @@
                             <page string="Other Info.">
                                 <group>
                                     <field name="notes"/>
+                                </group>
+                            </page>
+                            <page string="Revision Op. Report" attrs="{'readonly':[('state', 'not in', ['op-end'])]}">
+                                <group>
+                                    <!--<field name="patient_current_occupation"/>-->
+                                    <field name="last_operation_date" attrs="{'readonly':[('state', 'not in', ['op-end'])]}"/>
+                                    <field name="last_operation_hosptial" attrs="{'readonly':[('state', 'not in', ['op-end'])]}"/>
+                                </group>
+                                <group>
+                                    <field name="perviouse_item_manufacturer" attrs="{'readonly':[('state', 'not in', ['op-end'])]}"/>
+                                    <field name="revision_reason" attrs="{'readonly':[('state', 'not in', ['op-end'])]}"/>
                                 </group>
                             </page>
                             <page string="Cancel Reason" attrs="{'invisible':[('state','!=','cancel')]}">

@@ -58,6 +58,16 @@ class operation_operation(models.Model):
     # /////////////////////////////////////////////////////////////////////////////////
     def action_done_sales(self):
         self.state = 'done'
+
+    def action_operation_start(self):
+        self.state = 'op-start'
+
+    def action_operation_end(self):
+        self.state = 'op-end'
+
+    def action_operation_return(self):
+        self.state = 'op-return'
+
     # button to recheck on the policy of confirmation flag for Tender Team  #
     def action_check_operation(self):
         if (self.responsible.name and self.responsible.name == 'MOH Tender'):
@@ -373,6 +383,9 @@ class operation_operation(models.Model):
     STATE_SELECTION = [
         ('draft', 'Draft'),
         ('confirm', 'Confirmed'),
+        ('op-start', 'Op. Started'),
+        ('op-end', 'Op. Ended'),
+        ('op-return','Op. Returned'),
         ('done', 'Done'),
         ('cancel', 'Cancelled')
     ]
@@ -434,6 +447,24 @@ class operation_operation(models.Model):
     surgeon_id_second_confirmation = fields.Many2one('res.partner', string="Surgeon", track_visibility='onchange')
     #returner_responsible = fields.Many2one(comodel_name='res.users', string="Returner", default=_get_currunt_loged_user,track_visibility='onchange')
     qunat = fields.One2many('hanged.stock.quant', 'operation_id', 'Quants')
+
+    # Operation Report #
+
+    # patient_current_occupation = fields.Char(string="Patient Current Occupation")
+    last_operation_date = fields.date('Last Operation Date')
+    last_operation_hosptial = fields.Many2one('res.partner', string="Hospital", track_visibility='onchange')
+    perviouse_item_manufacturer = fields.Selection (string="Manufacturer Name",
+                                                    selection=[('corin', 'Corin'), ('hipokrat', 'Hipokrat'),
+                                                               ('j-j', 'Johnson & Johnson'), ('lima', 'Lima'),
+                                                               ('meril', 'Meril'), ('microport', 'Microport'),
+                                                               ('serf', 'Serf'), ('smith-nephew', 'Smith & Nephew'),
+                                                               ('local', 'Local'), ('stryker', 'Stryker'), ('surgival', 'Surgival'),
+                                                               ('tepmed', 'Tepmed'), ('zimmerBiomet', 'ZimmerBiomet'),
+                                                               ('unknown', 'Unknown')])#, readonly=True ()
+    revision_reason = fields.Selection (string="Revision Reason",
+                                       selection=[('failure', 'Failure'), ('infection', 'Infection'),
+                                                               ('unknown', 'Unknown'), ('other', 'Other')])#, readonly=True ()
+
 
     def create_operation_invoice(self):
         for rec in self:
