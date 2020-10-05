@@ -451,7 +451,7 @@ class operation_operation(models.Model):
     # Operation Report #
 
     # patient_current_occupation = fields.Char(string="Patient Current Occupation")
-    last_operation_date = fields.date('Last Operation Date')
+    last_operation_date = fields.Date('Last Operation Date')
     last_operation_hosptial = fields.Many2one('res.partner', string="Hospital", track_visibility='onchange')
     perviouse_item_manufacturer = fields.Selection (string="Manufacturer Name",
                                                     selection=[('corin', 'Corin'), ('hipokrat', 'Hipokrat'),
